@@ -3,21 +3,23 @@ import time
 import os
 import conf as Conf
 
-# configure the serial connections (the parameters differs on the device you are connecting to)
 sensors = []
-for i in range(7):
-  if(os.path.exists('/dev/ttyUSB'+str(i))):
-    sensors.append(
-      serial.Serial(
-        port='/dev/ttyUSB'+str(i),
-        baudrate=9600,
-        parity=serial.PARITY_NONE,
-        stopbits=serial.STOPBITS_ONE,
-        bytesize=serial.EIGHTBITS
-      )
-    )
-
+count = 0
 while True:
+  if count % 100 == 0:
+    sensors = []
+    for i in range(7):
+      if(os.path.exists('/dev/ttyUSB'+str(i))):
+        sensors.append(
+          serial.Serial(
+            port='/dev/ttyUSB'+str(i),
+            baudrate=9600,
+            parity=serial.PARITY_NONE,
+            stopbits=serial.STOPBITS_ONE,
+            bytesize=serial.EIGHTBITS
+          )
+        )
+
   data = ''
   for i in range(len(sensors)):
     if sensors[i].inWaiting() > 0:
@@ -28,3 +30,4 @@ while True:
     restful_str = "wget -O /tmp/last_upload.log \"" + Conf.Restful_URL + "topic=" + Conf.APP_ID + "&device_id=" + Conf.DEVICE_ID + "&msg=" + data + "\""
     os.system(restful_str)
   time.sleep(1)
+  count += 1
