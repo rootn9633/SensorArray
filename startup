@@ -18,7 +18,7 @@ start()
 
 stop()
 {
-        [ -f /root/AnySense_7688/APP_RESCUE_TW.py ] && {
-		rm -rf /home/pi/AnySense_7688
+        [ -f /home/pi/SensorArray/ser.py ] && {
+		rm -rf /home/pi/SensorArray
 	}
 }
