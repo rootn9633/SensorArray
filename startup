@@ -1,4 +1,4 @@
-#!/bin/sh /etc/rc.common
+#!/bin/sh
 
 start()
 {
@@ -7,12 +7,10 @@ start()
         [ -f /home/pi/SensorArray/ser.py ] && {
 		/usr/bin/git -C /home/pi/SensorArray fetch origin
 		/usr/bin/git -C /home/pi/SensorArray reset --hard origin/master
-		/usr/bin/python /home/pi/SensorArray/AnySense_RTC.py &>/dev/null
-		/usr/bin/python /home/pi/SensorArray/APP_RESCUE_TW.py &>/dev/null
+		/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
         } || {
                 /usr/bin/git clone https://github.com/cclljj/SensorArray/ /root/SensorArray
-		/usr/bin/python /home/pi/AnySense_7688/AnySense_RTC.py &>/dev/null
-		/usr/bin/python /home/pi/AnySense_7688/APP_RESCUE_TW.py &>/dev/null
+		/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
         }
 
 
