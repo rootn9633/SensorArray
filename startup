@@ -1,24 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
-start()
-{
-
-	sleep 30
-        [ -f /home/pi/SensorArray/ser.py ] && {
-		/usr/bin/git -C /home/pi/SensorArray fetch origin
-		/usr/bin/git -C /home/pi/SensorArray reset --hard origin/master
-		/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
-        } || {
-                /usr/bin/git clone https://github.com/cclljj/SensorArray/ /root/SensorArray
-		/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
-        }
-
-
-}
-
-stop()
-{
-        [ -f /home/pi/SensorArray/ser.py ] && {
-		rm -rf /home/pi/SensorArray
-	}
+sleep 30
+[ -f /home/pi/SensorArray/ser.py ] && {
+	/usr/bin/git -C /home/pi/SensorArray fetch origin
+	/usr/bin/git -C /home/pi/SensorArray reset --hard origin/master
+	/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
+} || {
+	/usr/bin/git clone https://github.com/rootn9633/SensorArray/ /home/pi/SensorArray
+	/usr/bin/python /home/pi/SensorArray/ser.py &>/dev/null
 }
